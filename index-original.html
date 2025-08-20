@@ -3,94 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake Walker Photography - Design Experiments</title>
-    <meta name="description" content="Experimental artsy designs for Jake Walker Photography website">
-    
-    <!-- Google Fonts for all experiments -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Default to Bold Artsy Design -->
-    <link rel="stylesheet" href="styles-artsy-bold.css" id="design-stylesheet">
-    
-    <style>
-        /* Design Switcher Styles */
-        .design-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            backdrop-filter: blur(10px);
-        }
-        
-        .design-switcher h3 {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: #fff;
-        }
-        
-        .design-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .design-option {
-            padding: 0.5rem 1rem;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.8rem;
-        }
-        
-        .design-option:hover {
-            background: #555;
-        }
-        
-        .design-option.active {
-            background: #ff6b35;
-        }
-        
-        @media (max-width: 768px) {
-            .design-switcher {
-                top: 10px;
-                right: 10px;
-                padding: 0.5rem;
-                font-size: 0.7rem;
-            }
-            
-            .design-option {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.7rem;
-            }
-        }
-    </style>
+    <title>Jake Walker Photography - Professional Photography Services in Arizona</title>
+    <meta name="description" content="Professional wedding, corporate headshot, and commercial photography services by Jake Walker. Capturing moments with artistic vision in Arizona.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Design Switcher -->
-    <div class="design-switcher">
-        <h3>🎨 Design Experiments</h3>
-        <div class="design-options">
-            <button class="design-option active" data-style="styles-artsy-bold.css">
-                Bold & Asymmetric
-            </button>
-            <button class="design-option" data-style="styles-organic.css">
-                Organic & Flowing
-            </button>
-            <button class="design-option" data-style="styles.css">
-                Original Design
-            </button>
-        </div>
-    </div>
-
     <!-- Header -->
     <header class="header">
         <nav class="nav">
@@ -148,7 +66,7 @@
                         <li>Online gallery & prints</li>
                     </ul>
                     <div class="service-pricing">Starting at $2,500</div>
-                    <button class="btn btn-service">Book Wedding Shoot</button>
+                    <button class="btn btn-service" onclick="openBookingModal('wedding')">Book Wedding Shoot</button>
                 </div>
                 
                 <div class="service-card" data-service="corporate">
@@ -162,7 +80,7 @@
                         <li>Same-day turnaround available</li>
                     </ul>
                     <div class="service-pricing">Starting at $350</div>
-                    <button class="btn btn-service">Book Headshots</button>
+                    <button class="btn btn-service" onclick="openBookingModal('corporate')">Book Headshots</button>
                 </div>
                 
                 <div class="service-card" data-service="commercial">
@@ -176,7 +94,7 @@
                         <li>Full licensing rights</li>
                     </ul>
                     <div class="service-pricing">Starting at $800</div>
-                    <button class="btn btn-service">Book Commercial Work</button>
+                    <button class="btn btn-service" onclick="openBookingModal('commercial')">Book Commercial Work</button>
                 </div>
             </div>
         </div>
@@ -242,7 +160,7 @@
         </div>
     </section>
 
-    <!-- About Section (Simplified for experiments) -->
+    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="about-content">
@@ -254,6 +172,20 @@
                     <p class="about-description">
                         My approach combines technical expertise with artistic vision, ensuring each image not only meets professional standards but also captures the unique essence of every subject and moment.
                     </p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Weddings Captured</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">1,200+</div>
+                            <div class="stat-label">Corporate Headshots</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Brand Campaigns</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="about-image">
                     <div class="about-placeholder">
@@ -264,7 +196,64 @@
         </div>
     </section>
 
-    <!-- Contact Section (Simplified) -->
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 class="modal-title">Book Your Session</h2>
+            <form id="booking-form" class="booking-form">
+                <input type="hidden" id="service-type" name="service-type">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="client-name">Full Name *</label>
+                        <input type="text" id="client-name" name="client-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-email">Email Address *</label>
+                        <input type="email" id="client-email" name="client-email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="client-phone">Phone Number</label>
+                        <input type="tel" id="client-phone" name="client-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="event-date">Preferred Date</label>
+                        <input type="date" id="event-date" name="event-date">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="event-location">Location</label>
+                    <input type="text" id="event-location" name="event-location" placeholder="City, State or Venue Name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="project-details">Project Details</label>
+                    <textarea id="project-details" name="project-details" rows="4" placeholder="Tell me about your vision, timeline, and any specific requirements..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="budget-range">Budget Range</label>
+                    <select id="budget-range" name="budget-range">
+                        <option value="">Select a range</option>
+                        <option value="under-1000">Under $1,000</option>
+                        <option value="1000-2500">$1,000 - $2,500</option>
+                        <option value="2500-5000">$2,500 - $5,000</option>
+                        <option value="5000-10000">$5,000 - $10,000</option>
+                        <option value="over-10000">Over $10,000</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Send Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
@@ -283,67 +272,74 @@
                     </div>
                     <div class="contact-item">
                         <h4>Location</h4>
-                        <p>Phoenix, Arizona</p>
+                        <p>Phoenix, Arizona<br>Serving the Southwest</p>
                     </div>
+                    <div class="contact-item">
+                        <h4>Response Time</h4>
+                        <p>Within 24 hours</p>
+                    </div>
+                </div>
+                <div class="contact-form-section">
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Name *</label>
+                                <input type="text" id="contact-name" name="contact-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email *</label>
+                                <input type="email" id="contact-email" name="contact-email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject</label>
+                            <input type="text" id="contact-subject" name="contact-subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message *</label>
+                            <textarea id="contact-message" name="contact-message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <script>
-        // Design Switcher Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const designOptions = document.querySelectorAll('.design-option');
-            const stylesheet = document.getElementById('design-stylesheet');
-            
-            designOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remove active class from all options
-                    designOptions.forEach(opt => opt.classList.remove('active'));
-                    
-                    // Add active class to clicked option
-                    this.classList.add('active');
-                    
-                    // Change stylesheet
-                    const newStyle = this.getAttribute('data-style');
-                    stylesheet.setAttribute('href', newStyle);
-                    
-                    // Store preference in localStorage
-                    localStorage.setItem('preferred-design', newStyle);
-                });
-            });
-            
-            // Load preferred design from localStorage
-            const preferredDesign = localStorage.getItem('preferred-design');
-            if (preferredDesign) {
-                stylesheet.setAttribute('href', preferredDesign);
-                designOptions.forEach(option => {
-                    option.classList.remove('active');
-                    if (option.getAttribute('data-style') === preferredDesign) {
-                        option.classList.add('active');
-                    }
-                });
-            }
-        });
-        
-        // Portfolio Filter Functionality (simple version for experiments)
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const filter = this.getAttribute('data-filter');
-                const items = document.querySelectorAll('.portfolio-item');
-                
-                items.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Jake Walker Photography</h3>
+                    <p>Capturing life's perfect moments with artistic vision and technical excellence.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#services">Wedding Photography</a></li>
+                            <li><a href="#services">Corporate Headshots</a></li>
+                            <li><a href="#services">Commercial Work</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#portfolio">Portfolio</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Jake Walker Photography. All rights reserved.</p>
+                <p>Website by <a href="mailto:contact@hivesoftware.io">Hive Software</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
